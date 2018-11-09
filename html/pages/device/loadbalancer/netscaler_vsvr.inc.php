@@ -15,21 +15,27 @@ if (is_numeric($vars['vsvr'])) {
 
     $i = 0;
 
-    echo "<div style='margin: 5px;'><table border=0 cellspacing=0 cellpadding=5 width=100%>";
-    foreach (dbFetchRows('SELECT * FROM `netscaler_vservers` WHERE `device_id` = ? AND `vsvr_id` = ? ORDER BY `vsvr_name`', array($device['device_id'], $vars['vsvr'])) as $vsvr) {
-        if (is_integer($i / 2)) {
-            $bg_colour = $config['list_colour']['even'];
-        } else {
-            $bg_colour = $config['list_colour']['odd'];
-        }
+    $bg_colour_even = $config['list_colour']['even'];
+    $bg_colour_odd = $config['list_colour']['odd'];
+    echo '<script src="js/sorttable.js"></script>';
+    echo '<div style="margin: 5px;"><table class="sortable" border=0 cellspacing=0 cellpadding=5 width=100%>';
+    echo '<tr bgcolor="#696969">';
+    echo '<th width=320 class=list-large>Virtual Server Name</th>';
+    echo '<th width=320 class=list-small>IP Address</th>';
+    echo '<th width=100 class=list-small>State</th>';
+    echo ('<th width=320 class=list-small>Bps In</th>');
+    echo ('<th width=320 class=list-small>Bps Out</th>');
+    echo '</tr>';
+    echo "<style>tr:nth-child(even) {background: $bg_colour_even} tr:nth-child(odd) {background: $bg_colour_odd} </style>";
 
+    foreach (dbFetchRows('SELECT * FROM `netscaler_vservers` WHERE `device_id` = ? AND `vsvr_id` = ? ORDER BY `vsvr_name`', array($device['device_id'], $vars['vsvr'])) as $vsvr) {
         if ($vsvr['vsvr_state'] == 'up') {
             $vsvr_class = 'green';
         } else {
             $vsvr_class = 'red';
         }
 
-        echo "<tr bgcolor='$bg_colour'>";
+        echo "<tr>";
         echo '<td width=320 class=list-large><a href="'.generate_url($vars, array('vsvr' => $vsvr['vsvr_id'], 'view' => null, 'graph' => null)).'">'.$vsvr['vsvr_name'].'</a></td>';
         echo '<td width=320 class=list-small>'.$vsvr['vsvr_ip'].':'.$vsvr['vsvr_port'].'</a></td>';
         echo "<td width=100 class=list-small><span class='".$vsvr_class."'>".$vsvr['vsvr_state'].'</span></td>';
@@ -110,22 +116,29 @@ if (is_numeric($vars['vsvr'])) {
 
     print_optionbar_end();
 
-    echo "<div style='margin: 5px;'><table border=0 cellspacing=0 cellpadding=5 width=100%>";
     $i = '0';
-    foreach (dbFetchRows('SELECT * FROM `netscaler_vservers` WHERE `device_id` = ? ORDER BY `vsvr_name`', array($device['device_id'])) as $vsvr) {
-        if (is_integer($i / 2)) {
-            $bg_colour = $config['list_colour']['even'];
-        } else {
-            $bg_colour = $config['list_colour']['odd'];
-        }
 
+    $bg_colour_even = $config['list_colour']['even'];
+    $bg_colour_odd = $config['list_colour']['odd'];
+    echo '<script src="js/sorttable.js"></script>';
+    echo '<div style="margin: 5px;"><table class="sortable" border=0 cellspacing=0 cellpadding=5 width=100%>';
+    echo '<tr bgcolor="#696969">';
+    echo '<th width=320 class=list-large>Virtual Server Name</th>';
+    echo '<th width=320 class=list-small>IP Address</th>';
+    echo '<th width=100 class=list-small>State</th>';
+    echo ('<th width=320 class=list-small>Bps In</th>');
+    echo ('<th width=320 class=list-small>Bps Out</th>');
+    echo '</tr>';
+    echo "<style>tr:nth-child(even) {background: $bg_colour_even} tr:nth-child(odd) {background: $bg_colour_odd} </style>";
+
+    foreach (dbFetchRows('SELECT * FROM `netscaler_vservers` WHERE `device_id` = ? ORDER BY `vsvr_name`', array($device['device_id'])) as $vsvr) {
         if ($vsvr['vsvr_state'] == 'up') {
             $vsvr_class = 'green';
         } else {
             $vsvr_class = 'red';
         }
 
-        echo "<tr bgcolor='$bg_colour'>";
+        echo "<tr>";
         echo '<td width=320 class=list-large><a href="'.generate_url($vars, array('vsvr' => $vsvr['vsvr_id'], 'view' => null, 'graph' => null)).'">'.$vsvr['vsvr_name'].'</a></td>';
         echo '<td width=320 class=list-small>'.$vsvr['vsvr_ip'].':'.$vsvr['vsvr_port'].'</a></td>';
         echo "<td width=100 class=list-small><span class='".$vsvr_class."'>".$vsvr['vsvr_state'].'</span></td>';
