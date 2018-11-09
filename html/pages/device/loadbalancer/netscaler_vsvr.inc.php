@@ -1,5 +1,9 @@
 <?php
 
+echo '<script src="js/sorttable.js"></script>';
+$bg_colour_even = $config['list_colour']['even'];
+$bg_colour_odd = $config['list_colour']['odd'];
+
 if (is_numeric($vars['vsvr'])) {
     // print_optionbar_start();
     // echo("<span style='font-weight: bold;'>VServer</span> &#187; ");
@@ -15,10 +19,7 @@ if (is_numeric($vars['vsvr'])) {
 
     $i = 0;
 
-    $bg_colour_even = $config['list_colour']['even'];
-    $bg_colour_odd = $config['list_colour']['odd'];
-    echo '<script src="js/sorttable.js"></script>';
-    echo '<div style="margin: 5px;"><table class="sortable" border=0 cellspacing=0 cellpadding=5 width=100%>';
+    echo '<div style="margin: 5px;"><table border=0 cellspacing=0 cellpadding=5 width=100%>';
     echo '<tr bgcolor="#696969">';
     echo '<th width=320 class=list-large>Virtual Server Name</th>';
     echo '<th width=320 class=list-small>IP Address</th>';
@@ -118,9 +119,6 @@ if (is_numeric($vars['vsvr'])) {
 
     $i = '0';
 
-    $bg_colour_even = $config['list_colour']['even'];
-    $bg_colour_odd = $config['list_colour']['odd'];
-    echo '<script src="js/sorttable.js"></script>';
     echo '<div style="margin: 5px;"><table class="sortable" border=0 cellspacing=0 cellpadding=5 width=100%>';
     echo '<tr bgcolor="#696969">';
     echo '<th width=320 class=list-large>Virtual Server Name</th>';
